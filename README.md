@@ -43,6 +43,6 @@ Steps to update the code:
 3> To calculate the jaccard score for the input file run below command. value of k can be changes if required.
 python3 jaccard_sim.py Input_csv.csv --output hdfs://localhost:54310/jaccard_score/
 
-4> Dwnload the output files for lsh.py and jaccard_sim from hdfs to local fo rfurther comparison.
+4> Download the output files for lsh.py and jaccard_sim from hdfs to local fo rfurther comparison.
 /usr/local/hadoop/bin/hdfs dfs -copyToLocal hdfs://localhost:54310/output/
 /usr/local/hadoop/bin/hdfs dfs -copyToLocal hdfs://localhost:54310/jaccard_score/

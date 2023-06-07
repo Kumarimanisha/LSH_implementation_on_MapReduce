@@ -18,3 +18,31 @@ titles, and bands). reducer bands collects a list of bands for every research ti
 * Comparison of bands and finding candidate pairs : In reducer candidate pair different combinations of research papers are created and their bands are compared for similarity. If even one band matches between two research papers, they are considered candidate pairs. The reducer5 generates the sum of all matched bands and returns the key-value pair as (research title, sum(matchedbands)).
 
 
+Steps to follow for running the code:
+
+1> To run the data extarction and data pre-processing script run below command:
+python3 input_data_extract.py
+
+2> Next, to run the mapreduce sccript on hadoop change the value of k,n_funcs and bands in the script and run the code as follows:
+python3 lsh.py -r hadoop Input_csv.csv --output hdfs://localhost:54310/output/
+
+Point to note : 
+The vocabulary  when changing value of k size gets updated when executed in local mode.
+
+For hadoop mode, code will fail at mapper 3 while creating one_hot_encode. 
+Steps to update the code:
+
+>>Uncompress the vocabulary -> gunzip vocabulary.json.gz
+
+>>Get the last index of dictionary -> tail vocabulary.json
+			
+>>Update size with index+1
+			
+>>Rerun the code
+
+3> To calculate the jaccard score for the input file run below command. value of k can be changes if required.
+python3 jaccard_sim.py Input_csv.csv --output hdfs://localhost:54310/jaccard_score/
+
+4> Dwnload the output files for lsh.py and jaccard_sim from hdfs to local fo rfurther comparison.
+/usr/local/hadoop/bin/hdfs dfs -copyToLocal hdfs://localhost:54310/output/
+/usr/local/hadoop/bin/hdfs dfs -copyToLocal hdfs://localhost:54310/jaccard_score/
